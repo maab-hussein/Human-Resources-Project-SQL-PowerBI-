@@ -235,7 +235,8 @@ These were the general questions, and, after finishing the queries, I downloaded
 ## Data Visualizations and Dashboard with PowerBI
 
 
-
+**First Page of the Dashboard**
+![Dashboard p1](https://github.com/user-attachments/assets/ab0dac9f-ae13-4f7f-a34c-d43aee828a83)
 
 
 
