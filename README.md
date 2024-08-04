@@ -101,6 +101,7 @@ ORDER BY count DESC
 
 3- What is the age distribution of employees in the company?
 
+**Generally**
 ```
 SELECT
   CASE
@@ -115,6 +116,25 @@ SELECT
 FROM hr
 WHERE termdate = '0000-00-00'
 ORDER BY age_group DESC
+```
+
+**Between Genders**
+```
+SELECT
+  CASE
+    WHEN age >= '18' AND age <= '24' THEN '18-24'
+    WHEN age >= '25' AND age <= '34' THEN '25-34'
+    WHEN age >= '35' AND age <= '44' THEN '35-44'
+    WHEN age >= '45' AND age <= '54' THEN '45-54'
+    WHEN age >= '55' AND age <= '64' THEN '55-64'
+    ELSE '65+'
+  END as age_group,
+  gender,
+  COUNT(*) as count
+FROM hr
+WHERE termdate = '0000-00-00'
+GROUP BY age_group, gender
+ORDER BY age_group, gender
 ```
 4- How many employees work at headquarters versus remote locations?
 ```
@@ -171,14 +191,14 @@ ORDER BY termination_rate DESC
 An alternative
 ```
 WITH cte as (
-   SELECT
-      department,
-      COUNT(*) as total_count,
-      SUM(CASE
-         WHEN termdate <> '0000-00-00' AND termdate < CURDATE() THEN 1 ELSE 0
-      END) as terminated_count
-   FROM hr
-   GROUP BY department
+  SELECT
+    department,
+    COUNT(*) as total_count,
+    SUM(CASE
+      WHEN termdate <> '0000-00-00' AND termdate < CURDATE() THEN 1 ELSE 0
+    END) as terminated_count
+  FROM hr
+  GROUP BY department
 )
 
 SELECT
@@ -240,7 +260,8 @@ These were the general questions, and, after finishing the queries, I downloaded
 
 
 
-
+**Second Page of the Dashboard**
+![Dashboard p2](https://github.com/user-attachments/assets/95b3c1aa-4ad2-4f46-b563-aa71fe9252bf)
 
 
 
