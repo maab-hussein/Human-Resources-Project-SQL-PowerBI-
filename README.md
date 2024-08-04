@@ -1,14 +1,14 @@
 # Human Resources Analysis "SQL / PowerBI"
 
-### Project Overview
+## Project Overview
 
 This project involves general comprehensive analysis of human resources metrics, utilizing SQL to clean and prepare data, followed by the use of PowerBI to create visualizations that provide deep insights into HR trends and performance indicators.
 
-### Data Cleaning and Preparation Using SQL
+## Data Cleaning and Preparation Using SQL
 
 To begin with, I downloaded data by left-clicking `Tables > Table Data Import Wizard > Browse`, and choosing the Excel file. The table was named `hr`. I started off with a simple `SELECT * FROM hr` and `DESCRIBE hr` to take a general look at the data.
 
-**Commands used for the cleaning process**
+### Commands Used for the Cleaning Process
 
 - Command
 ```
@@ -78,9 +78,9 @@ HAVING COUNT(emp_id) > 1
 ```
 
 
-**Commands used for analysis part**
+### Commands Used for Analyzing
 
-- What is the gender breakdown in the company?
+1- What is the gender breakdown in the company?
 ```
 SELECT gender, COUNT(*)
 FROM hr
@@ -88,7 +88,9 @@ WHERE termdate = '0000-00-00'
 GROUP BY gender
 ```
 
-- What is the race/ethnicity breakdown in the company?
+Because MySQL considers `0000-00-00` as an incorrect date value, we use the code `SET sql_mode = 'ALLOW_INVALID_DATES'` to allow these values.
+
+2- What is the race/ethnicity breakdown in the company?
 ```
 SELECT race, COUNT(*) as count
 FROM hr
@@ -97,7 +99,7 @@ GROUP BY race
 ORDER BY count DESC
 ```
 
-- What is the age distribution of employees in the company?
+3- What is the age distribution of employees in the company?
 
 ```
 SELECT
@@ -114,14 +116,14 @@ FROM hr
 WHERE termdate = '0000-00-00'
 ORDER BY age_group DESC
 ```
-- How many employees work at headquarters versus remote locations?
+4- How many employees work at headquarters versus remote locations?
 ```
 SELECT location, COUNT(*) as count
 FROM hr
 WHERE termdate = '0000-00-00'
 GROUP BY location
 ```
-- What is the average length of employment for employees who have been terminated?
+5- What is the average length of employment for employees who have been terminated?
 
 ```
 SELECT
@@ -130,7 +132,7 @@ FROM hr
 WHERE termdate <> '0000-00-00' AND termdate <= CURDATE()
 ```
 
-- How does the gender distribution vary across departments and job titles?
+6- How does the gender distribution vary across departments and job titles?
 ```
 SELECT
   gender, department, COUNT(*) as count
@@ -140,7 +142,7 @@ GROUP BY department, gender
 ORDER BY department
 ```
 
-- What is the distribution of job titles across the company?
+7- What is the distribution of job titles across the company?
 ```
 SELECT jobtitle, COUNT(*) as count
 FROM hr
@@ -149,7 +151,7 @@ GROUP BY jobtitle
 ORDER BY jobtitle
 ```
 
-- Which department has the highest turnover rate?
+8- Which department has the highest turnover rate?
 ```
 SELECT
   department,
@@ -169,13 +171,14 @@ ORDER BY termination_rate DESC
 An alternative
 ```
 WITH cte as (
-  SELECT
-    department, COUNT(*) as total_count,
-    SUM(CASE
-      WHEN termdate <> '0000-00-00' AND termdate < CURDATE() THEN 1 ELSE 0
-    END) as terminated_count
-  FROM hr
-  GROUP BY department
+   SELECT
+      department,
+      COUNT(*) as total_count,
+      SUM(CASE
+         WHEN termdate <> '0000-00-00' AND termdate < CURDATE() THEN 1 ELSE 0
+      END) as terminated_count
+   FROM hr
+   GROUP BY department
 )
 
 SELECT
@@ -187,7 +190,7 @@ FROM cte
 ORDER BY termination_rate DESC
 ```
 
-- What is the distribution of employees across locations by city and state?
+9- What is the distribution of employees across locations by city and state?
 
 ```
 SELECT location_state, COUNT(*) as count
@@ -197,7 +200,7 @@ GROUP BY location_state
 ORDER BY count DESC
 ```
 
-- How has the company's employee count changed over time based on hire and term dates?
+10- How has the company's employee count changed over time based on hire and term dates?
 ```
 SELECT 
   year,
@@ -215,7 +218,7 @@ FROM (
   ORDER BY year) as subquery
 ```
 
-- What is the tenure distribution for each department?
+11- What is the tenure distribution for each department?
 ```
 SELECT
   department,
@@ -226,10 +229,10 @@ GROUP BY department
 ORDER BY tenure_avg
 ```
 
-These were the general question, and, after finishig the querires, I downloaded every resulted table as a .csv file to upload them later on PowerBI.
+These were the general questions, and, after finishing the queries, I downloaded every resulting table as a .csv file to upload them later on PowerBI.
 
 
-### Data Visualizations and Dashboard with PowerBI
+## Data Visualizations and Dashboard with PowerBI
 
 
 
