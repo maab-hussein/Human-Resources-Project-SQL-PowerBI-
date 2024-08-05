@@ -90,6 +90,8 @@ GROUP BY gender
 
 Because MySQL considers `0000-00-00` as an incorrect date value, we use the code `SET sql_mode = 'ALLOW_INVALID_DATES'` to allow these values.
 
+![gender](https://github.com/user-attachments/assets/501bd91c-26b5-45cc-a14e-ce22f20e5b2a)
+
 2- What is the race/ethnicity breakdown in the company?
 ```
 SELECT race, COUNT(*) as count
@@ -98,6 +100,8 @@ WHERE termdate = '0000-00-00'
 GROUP BY race
 ORDER BY count DESC
 ```
+
+![race](https://github.com/user-attachments/assets/1579eaeb-1b3e-47df-988f-4c47a373169d)
 
 3- What is the age distribution of employees in the company?
 
@@ -118,6 +122,8 @@ WHERE termdate = '0000-00-00'
 ORDER BY age_group DESC
 ```
 
+![age_group](https://github.com/user-attachments/assets/50f52ab3-805b-42a4-92c5-3410c498d0a3)
+
 **Between Genders**
 ```
 SELECT
@@ -136,6 +142,9 @@ WHERE termdate = '0000-00-00'
 GROUP BY age_group, gender
 ORDER BY age_group, gender
 ```
+
+![age_group_gender](https://github.com/user-attachments/assets/b9ee5cf5-1774-4040-ab88-f79ee358f7f9)
+
 4- How many employees work at headquarters versus remote locations?
 ```
 SELECT location, COUNT(*) as count
@@ -143,6 +152,9 @@ FROM hr
 WHERE termdate = '0000-00-00'
 GROUP BY location
 ```
+
+![location](https://github.com/user-attachments/assets/f3d1954c-f089-43c5-bd1f-5c8ea19953e7)
+
 5- What is the average length of employment for employees who have been terminated?
 
 ```
@@ -151,6 +163,8 @@ SELECT
 FROM hr
 WHERE termdate <> '0000-00-00' AND termdate <= CURDATE()
 ```
+
+![avg_length_emp](https://github.com/user-attachments/assets/b167d76f-7eee-4828-bfa1-955cf44ee454)
 
 6- How does the gender distribution vary across departments and job titles?
 ```
@@ -162,6 +176,8 @@ GROUP BY department, gender
 ORDER BY department
 ```
 
+![gender_department](https://github.com/user-attachments/assets/b148328a-c235-4e10-8313-50c5184fcf43)
+
 7- What is the distribution of job titles across the company?
 ```
 SELECT jobtitle, COUNT(*) as count
@@ -170,6 +186,8 @@ WHERE termdate <> '0000-00-00'
 GROUP BY jobtitle
 ORDER BY jobtitle
 ```
+
+![job_title](https://github.com/user-attachments/assets/1ace33f0-d3ed-4877-b456-713e149cbb1e)
 
 8- Which department has the highest turnover rate?
 ```
@@ -210,6 +228,8 @@ FROM cte
 ORDER BY termination_rate DESC
 ```
 
+![turnover_rate](https://github.com/user-attachments/assets/fb22b90c-591b-4356-81a6-c1d70bdee5ee)
+
 9- What is the distribution of employees across locations by city and state?
 
 ```
@@ -219,6 +239,8 @@ WHERE termdate <> '0000-00-00'
 GROUP BY location_state
 ORDER BY count DESC
 ```
+
+![location_state](https://github.com/user-attachments/assets/25ee9bb9-4e1b-4675-ab64-4f8502952cc1)
 
 10- How has the company's employee count changed over time based on hire and term dates?
 ```
@@ -238,6 +260,8 @@ FROM (
   ORDER BY year) as subquery
 ```
 
+![emp_year](https://github.com/user-attachments/assets/f3b9aa66-93be-4a31-b6ec-5aa9723d7e73)
+
 11- What is the tenure distribution for each department?
 ```
 SELECT
@@ -249,24 +273,43 @@ GROUP BY department
 ORDER BY tenure_avg
 ```
 
+![tenure_avg](https://github.com/user-attachments/assets/c844fc91-8f74-4012-86b1-c3d448d898af)
+
 These were the general questions, and, after finishing the queries, I downloaded every resulting table as a .csv file to upload them later on PowerBI.
 
 
 ## Data Visualizations and Dashboard with PowerBI
 
+Open PowerPI desktop. Since I have already uploaded each resulting table from the above queries into .csv files, upload each table to PowerBI from `Get data > Text/CSV` and then choose the desired table.
 
-**First Page of the Dashboard**
+Choose the suitable chart for every table. Here are pictures of the final result.
+
+### Snapshot of the First Page of the Dashboard
+
 ![Dashboard p1](https://github.com/user-attachments/assets/ab0dac9f-ae13-4f7f-a34c-d43aee828a83)
 
 
 
-**Second Page of the Dashboard**
+### Snapshot of the Second Page of the Dashboard
+
 ![Dashboard p2](https://github.com/user-attachments/assets/95b3c1aa-4ad2-4f46-b563-aa71fe9252bf)
 
 
 
 
-
+## Summary of Findings
+1. Males are slightly more than females in the company.
+2. White race is the most dominant while Native Hawaiians and American Indians are the least.
+3. Age groups are divided into 5 groups, 18-24, 25-34, 35-44, 45-54, 55-64, and 65+. Age groups 25-34, 35-44, and 45-54 are the most common ones with slight differences between them, and the group 35-44 as the most common. The least common age group is 18-24.
+4. When it comes to age groups by members, there is roughly no significant difference in a particular age group by genders. The ratio of men and women is roughly constant.
+5. 25% of employees work remotely versus headquarters of 75%.
+6. Average length of employment for terminated employees throughout years is 7.9.
+7. Men are dominant in every department, having the largest difference in Engineering and Accounting departments, and the least in difference in Research and Development.
+8. Engineering and Accounting are the departments with the largest number of employees, while Auditing has the least number of employees.
+9. Auditing is the department with the highest turnover rate, and Marketing is the department with the lowest turnover rate.
+10. Ohio is the state with the vast majority number of employees by 82%, while Wisconsin is the state with the least number of employees.
+11. According to the line chart, the number of employees has generally been increasing continuously throughout years.
+12. Average tenure for departments is 7.9, having Sales and Marketing departments with the highest, and Legal and Product Management with the least.
 
 
 
