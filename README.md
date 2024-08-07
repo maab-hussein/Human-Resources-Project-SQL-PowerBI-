@@ -1,5 +1,11 @@
 # Human Resources Analysis "SQL / PowerBI"
 
+## Contents
+- [Project Overview](#project-overview)
+- [Data Cleaning and Preparation Using SQL](#data-cleaning-and-preparation-using-sql)
+- [Data Visualizations and Dashboard with PowerBI](#data-visualizations-and-dashboard-with-powerbi)
+- [Summary of Findings](#summary-of-findings)
+
 ## Project Overview
 
 This project involves general comprehensive analysis of human resources metrics, utilizing SQL to clean and prepare data, followed by the use of PowerBI to create visualizations that provide deep insights into HR trends and performance indicators.
